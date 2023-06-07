@@ -25,11 +25,13 @@ def Sinh(x):
     return np.sinh(x)
 
 
-# ! Don't use this function
-# def Sigmoid(x):
-#     return 1.0 / (1.0 + np.exp(-x))
+
+def Sigmoid(x):
+    return 1.0 / (1.0 + np.exp(-float(x)))
 
 def Softmax(x):
     e_z = np.exp(x)
-    
+    return e_z / np.sum(e_z)
+
+
 
