@@ -3,7 +3,7 @@
 
 ## Note about this project
 
-- Feel free to use (in that case, please credit my effort).
+- Feel free to use (in that case, please credit for my effort).
 - The program still has a lot of bug and problems.
 - Not really user friendly (still better than PyTorch).
 - A lot of models need to be built.
@@ -67,4 +67,5 @@ Path: `model/regression.py`
 
 ## References:
 [medium.com](https://medium.com/analytics-vidhya/this-blog-post-aims-at-explaining-the-behavior-of-different-algorithms-for-optimizing-gradient-46159a97a8c1)
+<br>
 [Vietnamese machine learning from scratch](https://machinelearningcoban.com/)
