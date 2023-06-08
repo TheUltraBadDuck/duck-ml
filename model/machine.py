@@ -114,7 +114,7 @@ class Machine():
 
 
 
-class Regression(Machine):
+class Supervise(Machine):
 
     def __init__(self, r_file: str = "") -> None:
         Machine.__init__(self, r_file)

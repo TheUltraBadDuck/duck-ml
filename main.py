@@ -1,4 +1,4 @@
-from model.regression import RegressionGraph, RegressionSoftmax
+from model.regression import *
 from model.active_func import *
 
 
@@ -18,18 +18,16 @@ if __name__ == "__main__":
 
     # model.graph("X_coord", "y_coord", ["test", "pred"])
 
-    model = RegressionSoftmax("data/Heart.csv")
+    model = KNearestNeighbor("data/Heart.csv")
 
-    model.modify("MaxHR", lambda x: x / 15)
     model.modify("AHD", lambda x: 1 if x == "Yes" else 0)
 
-    model.split(0.5, 0.5)
+    model.split(0.7, 0.3)
     model.giveTheory(["MaxHR"], ["AHD"])
 
     model.graph("MaxHR", "AHD", ["train"])
 
-    model.train([3], 0.03, 100, print_error=True)
-    model.test()
+    model.predict()
 
     model.graph("MaxHR", "AHD", ["test", "pred"])
 

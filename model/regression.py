@@ -2,16 +2,16 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from model.machine import Machine, Regression
+from model.machine import Machine, Supervise
 from model.active_func import *
 from model.lossfunc import *
 
 
 
-class RegressionGraph(Regression):
+class RegressionGraph(Supervise):
 
     def __init__(self, r_file: str = "") -> None:
-        Regression.__init__(self, r_file)
+        Supervise.__init__(self, r_file)
 
     def train(self, active_func, hddn: list = [], learning_rate: int = 0.1, max_step: int = 100, print_error: bool = True):
 
@@ -128,10 +128,10 @@ class RegressionGraph(Regression):
 # ! WARNING:
 # ! This class cannot be used for multi-label classification
 # !
-class RegressionSoftmax(Regression):
+class RegressionSoftmax(Supervise):
 
     def __init__(self, r_file: str = "") -> None:
-        Regression.__init__(self, r_file)
+        Supervise.__init__(self, r_file)
 
     def train(self, hddn: list = [], learning_rate: int = 0.1, max_step: int = 100, print_error: bool = True):
         
@@ -250,5 +250,46 @@ class RegressionSoftmax(Regression):
                     print()
         
         return self.y_pred
+
+
+
+class KNearestNeighbor(Supervise):
+
+    def __init__(self, r_file: str = "") -> None:
+        Supervise.__init__(self, r_file) 
+    
+    def predict(self, k_value: int = 3):
+
+        if k_value % 2 == 0:
+            raise("[ERROR]: K value is not odd")
+        
+        size_X: tuple = np.shape(self.X_train)
+        size_y: tuple = np.shape(self.y_train)
+
+        self.y_pred: np = np.zeros((self.y_test.shape[0], 1))
+        
+        for row in range(len(self.X_test)):
+            dist_arr: np = np.zeros((size_X[0], 2), dtype=[("id", int), ("dist", float)])
+            for i in range(size_X[0]):
+                dist_arr[i, 0] = i
+                dist_arr[i, 1] = np.linalg.norm(self.X_test[row, :] - self.X_train[i, :])
+            dist_arr = np.sort(dist_arr, order=["dist"])[::-1]
+
+            type_count_dict: dict = {}
+            for k in range(k_value):
+                #print(dist_arr[k, 0][0])
+                #print(self.y_train[:5, :])
+                label = self.y_train[dist_arr[k, 0][0]]
+                if not label in type_count_dict:
+                    type_count_dict[self.y_train[i]] = 1
+                else:
+                    type_count_dict[self.y_train[i]] += 1
+            
+            print(type_count_dict)
+            
+            self.y_pred[row] = max(type_count_dict, key=type_count_dict.get)
+
+
+
 
 
