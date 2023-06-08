@@ -2,8 +2,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from sklearn.metrics import mean_squared_error, log_loss
-
 from model.machine import Machine, Regression
 from model.active_func import *
 from model.lossfunc import *
@@ -80,7 +78,7 @@ class RegressionGraph(Regression):
                         W[j] = W[j] - learning_rate * np.dot(Y[j].T, multi)
                         B[j] = B[j] - learning_rate * multi
 
-                error = mean_squared_error(self.y_train, y_hat, squared = False)
+                error = RMSE(self.y_train, y_hat)
                 error_points[step] = error
                 step += 1
                 if min_error > error:
@@ -178,7 +176,7 @@ class RegressionSoftmax(Regression):
         step = 0
         while step < max_step:
 
-            try:
+            #try:
                 mix = np.random.permutation(size_X[0])
                 for i in mix:
 
@@ -212,13 +210,13 @@ class RegressionSoftmax(Regression):
                 if print_error:
                     print("Step ", step, " done with Cross Log = ", error)
 
-            except:
-                for i in range(len(W)):
-                    W[i] = np.random.normal(0, 1, size = (s_iter[i], s_iter[i + 1]))
-                    B[i] = np.random.normal(0, 1, size = (1, s_iter[i + 1]))
-                if print_error:
-                    print("[ERROR]: RESET at step ", step, " you should reduce the learning rate")
-                    step += 1
+            # except:
+            #     for i in range(len(W)):
+            #         W[i] = np.random.normal(0, 1, size = (s_iter[i], s_iter[i + 1]))
+            #         B[i] = np.random.normal(0, 1, size = (1, s_iter[i + 1]))
+            #     if print_error:
+            #         print("[ERROR]: RESET at step ", step, " you should reduce the learning rate")
+            #         step += 1
         
         if not print_error:
             plt.plot(np.arange(max_step), error_points)
@@ -240,10 +238,16 @@ class RegressionSoftmax(Regression):
             Y[0] = np.reshape(self.X_test[i], (1, size_X[1]))
 
             for j in range(len(self.hddn) + 1):
+                if i < 3:
+                    print('AT i = ', i)
+                    print('>   ', Y[j])
+                    print('>   ', self.W[j])
+                    print('>   ', self.B[j])
                 z        = np.dot(Y[j], self.W[j]) + self.B[j]
                 Y[j + 1] = np.array(Sigmoid(z))
-
-            self.y_pred[i, :] = Y[-1]
+                if i == 0:
+                    print('>   ', z)
+                    print()
         
         return self.y_pred
 

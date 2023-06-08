@@ -34,24 +34,13 @@
 
 ### Clustering in Unsupervised Learning
 
-| Model name              | Progress | Path             |
-|-------------------------|----------|------------------|
-| K-Means Clustering      | -        |
-| K-Medroids Clustering   | -        |
-| Hierarchical Clustering | -        |
-| Principal Component Analysis| -        |
-| Singular Value Decomposition| -        |
-
-### Loss functions
-
-Path: `model/lossfunc.py`
-
-| Loss functions          | Progress |
-|-------------------------|----------|
-| Mean Square Error       | **Done** |
-| Root Mean Square Error  | **Done** |
-| Cross-Entropy           | Done?    |
-| Mean Absolute Error     | -        |
+| Model name                   | Progress | Path             |
+|------------------------------|----------|------------------|
+| K-Means Clustering           | -        |
+| K-Medroids Clustering        | -        |
+| Hierarchical Clustering      | -        |
+| Principal Component Analysis | -        |
+| Singular Value Decomposition | -        |
 
 ### Optimizers
 
@@ -64,6 +53,17 @@ Path: `model/regression.py`
 | Adadelta                    | -        |
 | RMSprop                     | -        |
 | Adam                        | -        |
+
+### Others
+
+| Model name                    | Progress | Path             |
+|-------------------------------|----------|------------------|
+| Load file                     | Half     | `Machine` in `model/machine.py`
+| Save model                    | -        | -
+| Read from input data          | -        | -
+| Edit data                     | Half     | `model/machine.py`
+| Data Inappropriation Warning  | Half     | `model/regression.py`
+| Graph drawing                 | Done     | `Regression` in `model/machine.py`
 
 ## References:
 [medium.com](https://medium.com/analytics-vidhya/this-blog-post-aims-at-explaining-the-behavior-of-different-algorithms-for-optimizing-gradient-46159a97a8c1)

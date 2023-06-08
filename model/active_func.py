@@ -27,7 +27,7 @@ def Sinh(x):
 
 
 def Sigmoid(x):
-    return 1.0 / (1.0 + np.exp(-float(x)))
+    return 1.0 / (1.0 + np.exp(-x.astype(float)))
 
 def Softmax(x):
     e_z = np.exp(x)

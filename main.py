@@ -18,20 +18,20 @@ if __name__ == "__main__":
 
     # model.graph("X_coord", "y_coord", ["test", "pred"])
 
-    model = RegressionSoftmax("Heart.csv")
+    model = RegressionSoftmax("data/Heart.csv")
 
-    model.modify("RestBP", lambda x: x / 10 - 1)
-    model.modify("Age", lambda x: x / 5)
+    model.modify("MaxHR", lambda x: x / 15)
     model.modify("AHD", lambda x: 1 if x == "Yes" else 0)
-    
-    model.split(0.5, 0.5)
-    model.giveTheory(["RestBP", "Age"], ["AHD"])
 
-    model.train([], 0.03, 2000, print_error=False)
+    model.split(0.5, 0.5)
+    model.giveTheory(["MaxHR"], ["AHD"])
+
+    model.graph("MaxHR", "AHD", ["train"])
+
+    model.train([3], 0.03, 100, print_error=True)
     model.test()
 
-    model.graph("RestBP", "AHD", ["test", "pred"])
-    model.graph("Age", "AHD", ["test", "pred"])
+    model.graph("MaxHR", "AHD", ["test", "pred"])
 
     # model = RegressionSoftmax("logistic.csv")
     
