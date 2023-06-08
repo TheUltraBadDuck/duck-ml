@@ -262,32 +262,49 @@ class KNearestNeighbor(Supervise):
 
         if k_value % 2 == 0:
             raise("[ERROR]: K value is not odd")
+
+        if int(self.y_train[0, 0]) != self.y_train[0, 0]:
+            raise("[ERROR]: label must only contain integer values")
+        
+        def getKey(test: int, pred: int):
+            if test == 0:
+                return "tn" if pred == 0 else "fp"
+            else:
+                return "fn" if pred == 0 else "tp"
+            
         
         size_X: tuple = np.shape(self.X_train)
         size_y: tuple = np.shape(self.y_train)
 
         self.y_pred: np = np.zeros((self.y_test.shape[0], 1))
+
+        confusion_matrix = ConfusionMatrix()
         
         for row in range(len(self.X_test)):
-            dist_arr: np = np.zeros((size_X[0], 2), dtype=[("id", int), ("dist", float)])
+
+            dist_arr: np = np.zeros((size_X[0], 2))
             for i in range(size_X[0]):
                 dist_arr[i, 0] = i
                 dist_arr[i, 1] = np.linalg.norm(self.X_test[row, :] - self.X_train[i, :])
-            dist_arr = np.sort(dist_arr, order=["dist"])[::-1]
 
+            ind = np.argsort(dist_arr[:, -1])
+            dist_arr = dist_arr[ind]
             type_count_dict: dict = {}
+
             for k in range(k_value):
-                #print(dist_arr[k, 0][0])
-                #print(self.y_train[:5, :])
-                label = self.y_train[dist_arr[k, 0][0]]
-                if not label in type_count_dict:
-                    type_count_dict[self.y_train[i]] = 1
+                result: int = self.y_train[int(dist_arr[k, 0])][0]
+                if result in type_count_dict:
+                    type_count_dict[result] += 1
                 else:
-                    type_count_dict[self.y_train[i]] += 1
-            
-            print(type_count_dict)
+                    type_count_dict[result] = 1
             
             self.y_pred[row] = max(type_count_dict, key=type_count_dict.get)
+            confusion_matrix.addOne(getKey(self.y_test[row], self.y_pred[row]))
+
+        print("Precision: ", confusion_matrix.precision())
+        print("Confusion matrix:\n", confusion_matrix.matrix())
+
+
 
 
 

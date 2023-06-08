@@ -168,20 +168,18 @@ class Supervise(Machine):
 
             id_x: int = self.schema_X.index(x_title)
             id_y: int = self.schema_y.index(y_title)
-            if (id_x == -1) or (id_y == -1):
-                raise("!!!!!!!!!!!!!!!!!!!")
             
             if write == "both":
-                plt.scatter(self.df.loc[:, x_title], self.df.loc[:, y_title], color = "black")
+                plt.scatter(self.df.loc[:, x_title], self.df.loc[:, y_title], color = "#000")
 
             if write == "train":
-                plt.scatter(self.X_train[:, id_x], self.y_train[:, id_y], color = "blue")
+                plt.scatter(self.X_train[:, id_x], self.y_train[:, id_y], color = "#0aa")
 
             elif write == "test":
-                plt.scatter(self.X_test[:, id_x], self.y_test[:, id_y], color = "orange")
+                plt.scatter(self.X_test[:, id_x], self.y_test[:, id_y], color = "#aa0")
             
             elif write == "pred":
-                plt.scatter(self.X_test[:, id_x], self.y_pred[:, id_y], color = "red")
+                plt.scatter(self.X_test[:, id_x], self.y_pred[:, id_y], color = "#660")
 
         plt.xlabel(x_title)
         plt.ylabel(y_title)

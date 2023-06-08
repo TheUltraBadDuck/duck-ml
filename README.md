@@ -29,7 +29,7 @@
 | Naive Bayes             | -        |
 | Support Vector Machine  | -        |
 | Discriminant Analysis   | -        |
-| K-Nearest Neighbors     | -        |
+| K-Nearest Neighbors     | Half     |
 | Random Forest           | -        |
 
 ### Clustering in Unsupervised Learning
