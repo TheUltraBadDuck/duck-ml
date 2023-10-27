@@ -1,4 +1,7 @@
 # Welcome to my great own framework built from scratch
+
+- **NOTE: This no longer works. Please move to [This repo](https://github.com/TheUltraBadDuck/Goose-ML-from-scratch)**
+
 - Supporting frameworks: `numpy`, `pandas`, `matplotlib`
 
 ## Note about this project
